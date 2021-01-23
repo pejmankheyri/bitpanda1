@@ -34,7 +34,7 @@ abstract class BaseRepository implements IBase,ICriteria
 
     public function findWhereFirst($column, $value)
     {
-        return $this->model->where($column, $value)->firstOrFail();
+        return $this->model->where($column, $value)->first();
     }
 
     public function paginate($perpage = 10)

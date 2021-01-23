@@ -12,7 +12,7 @@ class CountryRepository extends BaseRepository implements ICountry
         return Country::class;
     }
 
-    public function getIdByName($country_name)
+    public function getCountryIdByName($country_name)
     {
         return $this->model->where('name', $country_name)->first();
     }

@@ -5,12 +5,21 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Active Users List With Austrian Citizenship') }}</div>
+                <div class="card-header"><h3>{{ __('Active users list with austrian citizenship') }}</h3></div>
 
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            {{$users}}
+                            @if(session()->get('error'))
+                            <div class="alert alert-danger">
+                                {{ session()->get('error') }}  
+                            </div>
+                        @endif
+                        @if(session()->get('success'))
+                            <div class="alert alert-success">
+                                {{ session()->get('success') }}  
+                            </div>
+                        @endif
                             <table class="table table-responsive">
                                 <thead>
                                   <tr>
@@ -60,8 +69,14 @@
                                     <td>{{$user->created_at->diffForHumans()}}</td>
                                     <td>
                                         @if($user->userDetail) 
-                                            <button type="button" class="btn btn-outline-info">edit</button>
-                                            <button type="button" class="btn btn-outline-danger">delete</button>
+                                            <a href="{{ route('user.edit', $user->id) }}" type="button" class="btn btn-outline-info">edit</a>
+                                            
+                                            <form action="{{ route('user.delete',$user->id) }}" method="POST">                               
+                                                @csrf
+                                                @method('DELETE')
+                                  
+                                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                            </form>
                                         @else
                                             No Details !
                                         @endif
