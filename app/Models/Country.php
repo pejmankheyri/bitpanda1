@@ -10,4 +10,10 @@ class Country extends Model
     use HasFactory;
 
     public $timestamps = false;
+
+    public function userDetails()
+    {
+        return $this->belongsToMany(UserDetail::class);
+    }
+
 }
