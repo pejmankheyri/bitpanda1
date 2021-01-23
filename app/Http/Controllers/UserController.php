@@ -7,11 +7,8 @@ use App\Repositories\Contracts\ICountry;
 use App\Repositories\Contracts\IUser;
 use App\Repositories\Contracts\IUserDetail;
 use App\Repositories\Eloquent\Criteria\EagerLoad;
-use App\Repositories\Eloquent\Criteria\ForCountry;
-use App\Repositories\Eloquent\Criteria\ForUser;
 use App\Repositories\Eloquent\Criteria\HasDetail;
 use App\Repositories\Eloquent\Criteria\IsActive;
-use App\Repositories\Eloquent\Criteria\LatestFirst;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -21,6 +18,9 @@ class UserController extends Controller
     protected $countries;
     protected $userDetails;
 
+    /**
+     * @constructor for getting User, UserDetail, Country repositories.
+     */
     public function __construct(IUser $users, ICountry $countries, IUserDetail $userDetails)
     {
         $this->users = $users;
@@ -28,6 +28,11 @@ class UserController extends Controller
         $this->userDetails = $userDetails;
     }
 
+    /**
+     * Display a listing of the user where is active and have an Austrian citizenship.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $country_id = $this->countries->getCountryIdByName('Austria');
@@ -41,6 +46,12 @@ class UserController extends Controller
         return view("index", ['users'=>$users]);
     }
 
+    /**
+     * Show the form for editing the user detail.
+     *
+     * @param  int  $userId
+     * @return \Illuminate\Http\Response
+     */
     public function edit($userId)
     {
         $user = $this->users->getUser($userId);
@@ -48,6 +59,13 @@ class UserController extends Controller
         return view("edit", ['user'=>$user]);
     }
 
+    /**
+     * Update the user detail in storage where user details are there already.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
 
@@ -84,9 +102,14 @@ class UserController extends Controller
         }
     }
 
-    public function destroy(User $user, $id)
+    /**
+     * Remove the user data from storage where no user details exist yet.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
     {
-  
         $userDetail = $this->userDetails->findWhereFirst('user_id', $id);
 
         // $this->authorize('delete', $id);

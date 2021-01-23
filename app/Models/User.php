@@ -21,6 +21,9 @@ class User extends Authenticatable
         'active',
     ];
 
+    /**
+     * @return hasOne|UserDetail
+     */
     public function userDetail()
     {
         return $this->hasOne(UserDetail::class, 'user_id', 'id')

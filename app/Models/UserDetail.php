@@ -17,17 +17,22 @@ class UserDetail extends Model
      * @var array
      */
     protected $fillable = [
-        'id',
         'first_name',
         'last_name',
         'phone_number',
     ];
 
+    /**
+     * @return belongsTo|User
+     */
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    /**
+     * @return belongsTo|Country
+     */
     public function country()
     {
         return $this->belongsTo(Country::class, 'citizenship_country_id', 'id');

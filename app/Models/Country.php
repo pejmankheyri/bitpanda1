@@ -11,6 +11,9 @@ class Country extends Model
 
     public $timestamps = false;
 
+    /**
+     * @return belongsToMany|UserDetail
+     */
     public function userDetails()
     {
         return $this->belongsToMany(UserDetail::class);
