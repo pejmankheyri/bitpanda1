@@ -31,4 +31,13 @@ class User extends Authenticatable
 
     }
 
+    /**
+     * @return hasOne|UserDetail
+     */
+    public function allUserDetail()
+    {
+        return $this->hasOne(UserDetail::class, 'user_id', 'id');
+
+    }
+
 }

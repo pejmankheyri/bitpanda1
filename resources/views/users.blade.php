@@ -6,10 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>
-                        Active users list with austrian citizenship 
-                        <a href="{{ route('users') }}" class=""> (all users) </a>
-                    </h3>
+                    <h3>{{ __('All users') }}</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -44,22 +41,22 @@
                                                 <th scope="row">{{$user->id}}</th>
                                                 <td>{{$user->email}}</td>
                                                 <td>
-                                                    @if($user->userDetail)  
-                                                        {{$user->userDetail->first_name}} {{$user->userDetail->last_name}}
+                                                    @if($user->allUserDetail)  
+                                                        {{$user->allUserDetail->first_name}} {{$user->allUserDetail->last_name}}
                                                     @else
                                                         -
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if($user->userDetail)  
-                                                        {{$user->userDetail->phone_number}}
+                                                    @if($user->allUserDetail)  
+                                                        {{$user->allUserDetail->phone_number}}
                                                     @else
                                                         -
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if($user->userDetail) 
-                                                        {{$user->userDetail->country->name}}
+                                                    @if($user->allUserDetail) 
+                                                        {{$user->allUserDetail->country->name}}
                                                     @else
                                                         -
                                                     @endif
@@ -73,10 +70,10 @@
                                                 </td>
                                                 <td>{{$user->created_at->diffForHumans()}}</td>
                                                 <td>
-                                                    @if($user->userDetail) 
+                                                    @if($user->allUserDetail) 
                                                         <a href="{{ route('user.edit', $user->id) }}" type="button" class="btn btn-outline-info">edit</a>
                                                         
-                                                        <form action="{{ route('user.delete',$user->id) }}" method="POST" class="float-left mr-1">                               
+                                                        <form action="{{ route('user.delete',$user->id) }}" method="POST" class="float-left mr-1" >                               
                                                             @csrf
                                                             @method('DELETE')
                                             

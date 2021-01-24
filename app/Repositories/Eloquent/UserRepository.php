@@ -36,6 +36,18 @@ class UserRepository extends BaseRepository implements IUser
     }
 
     /**
+     * method for getting all users.
+     * 
+     * @return object user details
+     */
+    public function getAllUsers()
+    {
+        $usersDetails = $this->model->with('allUserDetail')->get();
+
+        return $usersDetails;
+    }
+
+    /**
      * method for getting user with details by user Id.
      * 
      * @param  int  $userId

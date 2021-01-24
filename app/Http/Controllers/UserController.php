@@ -47,6 +47,21 @@ class UserController extends Controller
     }
 
     /**
+     * Display a listing of all users.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function users()
+    {
+
+        $users = $this->users->withCriteria([
+            new EagerLoad('userDetail.country'),
+        ])->getAllUsers();
+
+        return view("users", ['users'=>$users]);
+    }
+
+    /**
      * Show the form for editing the user detail.
      *
      * @param  int  $userId

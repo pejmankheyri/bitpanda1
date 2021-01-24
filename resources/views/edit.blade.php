@@ -5,17 +5,18 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"><h3>{{ __('Edit user details') }}</h3></div>
+                <div class="card-header">
+                    <h3>{{ __('Edit user details') }}</h3>
+                </div>
 
                 <div class="card-body">
                     <div class="row">
-                        
                         <div class="col-md-12">
                             <a href="{{ route('index') }}" class="">Back to all users</a>
                             <hr>
                             @if(!$user->userDetail)
                                 <div class="alert alert-danger">
-                                    <p>You can not edit this user !</p>
+                                    <p>You can not edit this user ! You can just edit users that the user details are there already ! </p>
                                 </div>
                             @else
                                 @if($errors->any())

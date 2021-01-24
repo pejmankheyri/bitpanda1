@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [UserController::class, 'index'])->name('index');
+Route::get('/users', [UserController::class, 'users'])->name('users');
 Route::get('/user/edit/{id}',[UserController::class, 'edit'])->name('user.edit');
 Route::put('/user/update/{id}',[UserController::class, 'update'])->name('user.update');
 Route::delete('/user/delete/{id}',[UserController::class, 'destroy'])->name('user.delete');
