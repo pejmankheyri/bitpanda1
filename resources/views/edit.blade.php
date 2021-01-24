@@ -12,9 +12,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="{{ route('index') }}" class="">Back to all users</a>
-                            <hr>
-                            @if(!$user->userDetail)
+                            @if(!$has_detail)
                                 <div class="alert alert-danger">
                                     <p>You can not edit this user ! You can just edit users that the user details are there already ! </p>
                                 </div>
@@ -46,16 +44,16 @@
 
                                 <div class="form-group">
                                     {{ Form::label('first_name', 'First name') }}
-                                    {{ Form::text('first_name', $user->userDetail->first_name, array('class' => 'form-control')) }}
+                                    {{ Form::text('first_name', $userDetail->first_name, array('class' => 'form-control')) }}
                                 </div>
                                 <div class="form-group">
                                     {{ Form::label('last_name', 'Last name') }}
-                                    {{ Form::text('last_name', $user->userDetail->last_name, array('class' => 'form-control')) }}
+                                    {{ Form::text('last_name', $userDetail->last_name, array('class' => 'form-control')) }}
                                 </div>
 
                                 <div class="form-group">
                                     {{ Form::label('phone_number', 'Phone number') }}
-                                    {{ Form::text('phone_number', $user->userDetail->phone_number, array('class' => 'form-control')) }}
+                                    {{ Form::text('phone_number', $userDetail->phone_number, array('class' => 'form-control')) }}
                                 </div>
 
                                 <div class="form-group">

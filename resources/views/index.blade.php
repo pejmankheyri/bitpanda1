@@ -8,7 +8,6 @@
                 <div class="card-header">
                     <h3>
                         Active users list with austrian citizenship 
-                        <a href="{{ route('users') }}" class=""> (all users) </a>
                     </h3>
                 </div>
                 <div class="card-body">

@@ -70,8 +70,10 @@ class UserController extends Controller
     public function edit($userId)
     {
         $user = $this->users->getUser($userId);
+        $userDetail = $this->userDetails->findWhereFirst('user_id', $userId);
+        $has_detail = !empty($userDetail);
 
-        return view("edit", ['user'=>$user]);
+        return view("edit", ['user' => $user, 'userDetail'=> $userDetail, 'has_detail' => $has_detail]);
     }
 
     /**
@@ -132,11 +134,11 @@ class UserController extends Controller
         if (empty($userDetail)) {
             $this->users->delete($id);
 
-            return redirect()->route('index', $id)
+            return redirect()->route('users', $id)
                 ->with('success', 'user deleted successfully');
 
         } else {
-            return redirect()->route('index', $id)
+            return redirect()->route('users', $id)
                 ->with('error', 'You cant delete user (user has details)!');
         }
     }
