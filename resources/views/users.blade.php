@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>{{ __('All users') }}</h3>
+                    <h3>{{ __('All users (order by created latest)') }}</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -41,22 +41,22 @@
                                                 <th scope="row">{{$user->id}}</th>
                                                 <td>{{$user->email}}</td>
                                                 <td>
-                                                    @if($user->allUserDetail)  
-                                                        {{$user->allUserDetail->first_name}} {{$user->allUserDetail->last_name}}
+                                                    @if($user->userDetail)  
+                                                        {{$user->userDetail->first_name}} {{$user->userDetail->last_name}}
                                                     @else
                                                         -
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if($user->allUserDetail)  
-                                                        {{$user->allUserDetail->phone_number}}
+                                                    @if($user->userDetail)  
+                                                        {{$user->userDetail->phone_number}}
                                                     @else
                                                         -
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if($user->allUserDetail) 
-                                                        {{$user->allUserDetail->country->name}}
+                                                    @if($user->userDetail) 
+                                                        {{$user->userDetail->country->name}}
                                                     @else
                                                         -
                                                     @endif
@@ -70,17 +70,15 @@
                                                 </td>
                                                 <td>{{$user->created_at->diffForHumans()}}</td>
                                                 <td class="d-flex">
-                                                    @if($user->allUserDetail) 
+                                                    @if($user->userDetail) 
                                                         <a href="{{ route('user.edit', $user->id) }}" type="button" class="btn btn-outline-info">edit</a>
-                                                        
+                                                    @else
                                                         <form action="{{ route('user.delete',$user->id) }}" method="POST" class="ml-1" >                               
                                                             @csrf
                                                             @method('DELETE')
-                                            
-                                                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+
+                                                            <button onclick="return confirm('Are you sure?')" type="submit" class="btn btn-outline-danger">Delete</button>
                                                         </form>
-                                                    @else
-                                                        No Details !
                                                     @endif
                                                 </td>
                                             </tr>
@@ -95,4 +93,5 @@
         </div>
     </div>
 </div>
+
 @endsection

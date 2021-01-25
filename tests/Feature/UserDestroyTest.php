@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use App\Models\UserDetail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -17,19 +16,16 @@ class UserDestroyTest extends TestCase
      */
     public function test_destroy_user_with_valid_data()
     {
-        // user that has NOT details
-        $userEmail = "maria@tempmail.com";
+        // find user id where does not have details
+        $userId = User::doesntHave('userDetail')->first()->id;
 
-        // find user id
-        $userId = User::where('email', $userEmail)->first()->id;
+        // check if there is a user which does not have details
+        $this->assertNotNull($userId);
 
-        // get user details if there is
-        $userDetail = UserDetail::where('user_id', $userId)->first();
-
-        $this->assertEquals(null, $userDetail);
-
+        // try to delete that user
         $response = $this->delete('/user/delete/'.$userId);
 
+        // check destroy method return
         $response->assertStatus(302);
     }
 
@@ -40,19 +36,16 @@ class UserDestroyTest extends TestCase
      */
     public function test_destroy_user_with_invalid_data()
     {
-        // user that has details
-        $userEmail = "dominik@test.com";
+        // find user id where has details
+        $userId = User::whereHas('userDetail')->first()->id;
 
-        // find user id
-        $userId = User::where('email', $userEmail)->first()->id;
+        // check if there is a user which has details
+        $this->assertNotNull($userId);
 
-        // get user details if there is
-        $userDetail = UserDetail::where('user_id', $userId)->first();
-
-        $this->assertNotNull($userDetail);
-
+        // try to delete that user
         $response = $this->delete('/user/delete/'.$userId);
 
+        // check destroy method return
         $response->assertStatus(302);
     }
 }

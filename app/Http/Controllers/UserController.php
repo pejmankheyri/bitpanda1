@@ -7,8 +7,10 @@ use App\Repositories\Contracts\ICountry;
 use App\Repositories\Contracts\IUser;
 use App\Repositories\Contracts\IUserDetail;
 use App\Repositories\Eloquent\Criteria\EagerLoad;
+use App\Repositories\Eloquent\Criteria\ForCountry;
 use App\Repositories\Eloquent\Criteria\HasDetail;
 use App\Repositories\Eloquent\Criteria\IsActive;
+use App\Repositories\Eloquent\Criteria\LatestFirst;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -37,11 +39,14 @@ class UserController extends Controller
     {
         $country = $this->countries->getCountryIdByName('Austria');
 
+        // get active austrian users with criteria
         $users = $this->users->withCriteria([
             new IsActive(),
             new EagerLoad('userDetail.country'),
-            new HasDetail(),
-        ])->getUsersWithDetails($country->id);
+            new ForCountry($country->id),
+            new LatestFirst(),
+            // new HasDetail(),
+            ])->getUsersWithDetails();
 
         return view("index", ['users'=>$users]);
     }
@@ -53,9 +58,10 @@ class UserController extends Controller
      */
     public function users()
     {
-
+        // get all users data with details
         $users = $this->users->withCriteria([
             new EagerLoad('userDetail.country'),
+            new LatestFirst(),
         ])->getAllUsers();
 
         return view("users", ['users'=>$users]);
@@ -90,6 +96,7 @@ class UserController extends Controller
 
         // $this->authorize('update', $id);
 
+        // check if user have details
         if ($userDetail) {
 
             $this->validate($request, [
@@ -128,9 +135,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         $userDetail = $this->userDetails->findWhereFirst('user_id', $id);
-
+        
         // $this->authorize('delete', $id);
 
+        // check if user have details
         if (empty($userDetail)) {
             $this->users->delete($id);
 

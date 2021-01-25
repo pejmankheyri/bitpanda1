@@ -25,11 +25,9 @@ class UserRepository extends BaseRepository implements IUser
      * 
      * @return object user details
      */
-    public function getUsersWithDetails($country_id)
+    public function getUsersWithDetails()
     {
-        $usersDetails = $this->model->whereHas('userDetail', function ($query) use ($country_id) {
-            $query->where('user_details.citizenship_country_id', $country_id);
-        })->get();
+        $usersDetails = $this->model->get();
 
         return $usersDetails;
     }
@@ -41,7 +39,7 @@ class UserRepository extends BaseRepository implements IUser
      */
     public function getAllUsers()
     {
-        $usersDetails = $this->model->with('allUserDetail')->get();
+        $usersDetails = $this->model->with('userDetail')->get();
 
         return $usersDetails;
     }

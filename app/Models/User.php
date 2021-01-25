@@ -21,18 +21,11 @@ class User extends Authenticatable
         'active',
     ];
 
-    /**
-     * @return hasOne|UserDetail
-     */
-    public function userDetail()
-    {
-        return $this->hasOne(UserDetail::class, 'user_id', 'id');
-    }
 
     /**
      * @return hasOne|UserDetail
      */
-    public function allUserDetail()
+    public function userDetail()
     {
         return $this->hasOne(UserDetail::class, 'user_id', 'id');
 

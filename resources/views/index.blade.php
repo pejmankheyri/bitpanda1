@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3>
-                        Active users list with austrian citizenship 
+                        Active users list with austrian citizenship (order by created latest)
                     </h3>
                 </div>
                 <div class="card-body">
@@ -74,15 +74,13 @@
                                                 <td class="d-flex">
                                                     @if($user->userDetail) 
                                                         <a href="{{ route('user.edit', $user->id) }}" type="button" class="btn btn-outline-info">edit</a>
-                                                        
+                                                    @else    
                                                         <form action="{{ route('user.delete',$user->id) }}" method="POST" class="ml-1">                               
                                                             @csrf
                                                             @method('DELETE')
                                             
                                                             <button type="submit" class="btn btn-outline-danger">Delete</button>
                                                         </form>
-                                                    @else
-                                                        No Details !
                                                     @endif
                                                 </td>
                                             </tr>
