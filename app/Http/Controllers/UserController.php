@@ -35,13 +35,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $country_id = $this->countries->getCountryIdByName('Austria');
+        $country = $this->countries->getCountryIdByName('Austria');
 
         $users = $this->users->withCriteria([
             new IsActive(),
             new EagerLoad('userDetail.country'),
             new HasDetail(),
-        ])->getUsersWithDetails($country_id);
+        ])->getUsersWithDetails($country->id);
 
         return view("index", ['users'=>$users]);
     }

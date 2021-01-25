@@ -23,7 +23,6 @@ class UserDetailFactory extends Factory
     public function definition()
     {
         $citizenship_country_id = [
-            1,
             5,
             10,
             15,
@@ -34,7 +33,7 @@ class UserDetailFactory extends Factory
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'phone_number' => $this->faker->phoneNumber,
-            'user_id' => $this->faker->numberBetween(1,50),
+            'user_id' => $this->faker->unique()->numberBetween(1,100),
             'citizenship_country_id' => Arr::random($citizenship_country_id),
         ];
     }

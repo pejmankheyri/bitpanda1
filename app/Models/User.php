@@ -26,9 +26,7 @@ class User extends Authenticatable
      */
     public function userDetail()
     {
-        return $this->hasOne(UserDetail::class, 'user_id', 'id')
-            ->where('citizenship_country_id', '=', 15);
-
+        return $this->hasOne(UserDetail::class, 'user_id', 'id');
     }
 
     /**

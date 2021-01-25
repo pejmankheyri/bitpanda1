@@ -71,11 +71,11 @@
                                                     @endif
                                                 </td>
                                                 <td>{{$user->created_at->diffForHumans()}}</td>
-                                                <td>
+                                                <td class="d-flex">
                                                     @if($user->userDetail) 
                                                         <a href="{{ route('user.edit', $user->id) }}" type="button" class="btn btn-outline-info">edit</a>
                                                         
-                                                        <form action="{{ route('user.delete',$user->id) }}" method="POST" class="float-left mr-1">                               
+                                                        <form action="{{ route('user.delete',$user->id) }}" method="POST" class="ml-1">                               
                                                             @csrf
                                                             @method('DELETE')
                                             
